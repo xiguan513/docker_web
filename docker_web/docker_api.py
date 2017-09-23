@@ -36,7 +36,7 @@ def create_con(image,cmd,con_name,port):
 if __name__=="__main__":
     url="tcp://192.168.1.10:2375"
     con_name = "lvbb"
-    tagname = "lvbb:%s" % image_time
+    tagname = "%s:%s" % (con_name,image_time)
     dockerfile_path = "/hptx_docker/%s/" % con_name
     war_dir=dockerfile_path+"war"+"/"
     cmd = '/opt/tomcat.sh'
@@ -60,16 +60,4 @@ if __name__=="__main__":
     docker_cmd = docker.Client(base_url=url)
     create_images(path_file=dockerfile_path,tagname=tagname)
     stop_rm_con(con_name=con_name)
-    create_con(image="lvbb:"+image_time,cmd=cmd,con_name=con_name,port=8080)
-
-
-
-
-
-
-
-
-
-
-
-
+    create_con(image=tagname,cmd=cmd,con_name=con_name,port=8080)
